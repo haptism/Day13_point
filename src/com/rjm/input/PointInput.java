@@ -6,32 +6,38 @@ import com.rjm.point.PointDTO;
 
 public class PointInput {
 
-	public int setNum(String str) {
+	// 입력 담당
+	public PointDTO setPoint() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println(str + " 번호를 입력");
-		int num = sc.nextInt();
+		PointDTO dto = new PointDTO();
+
+		System.out.println("학생번호:");
+		dto.setNum(sc.nextInt());
+		System.out.println("sid:");
+		dto.setSid(sc.next());
+		System.out.println("kor:");
+		dto.setKor(sc.nextInt());
+		System.out.println("eng:");
+		dto.setEng(sc.nextInt());
+		System.out.println("math:");
+		dto.setMath(sc.nextInt());
+
+		dto.setTotal(dto.getKor() + dto.getEng() + dto.getMath());
+		dto.setAvg(dto.getTotal() / 3.0);
+
+		System.out.println("반번호:");
+		dto.setBnum(sc.nextInt());
+
+		return dto;
+	}
+
+	public int setNum(String str) {
+		int num = 0;
+		Scanner sc = new Scanner(System.in);
+
+		System.out.println(str + "할 번호:");
+		num = sc.nextInt();
+
 		return num;
 	}
-
-	public PointDTO setPoint() {
-		PointDTO pointDTO = new PointDTO();
-		Scanner sc = new Scanner(System.in);
-		System.out.println("번호를 입력");
-		pointDTO.setNum(sc.nextInt());
-		System.out.println("학생 ID 입력");
-		pointDTO.setSid(sc.next());
-		System.out.println("국어 점수 입력");
-		pointDTO.setKor(sc.nextInt());
-		System.out.println("영어 점수 입력");
-		pointDTO.setEng(sc.nextInt());
-		System.out.println("수학 점수 입력");
-		pointDTO.setMath(sc.nextInt());
-		System.out.println("반 번호 입력");
-		pointDTO.setBnum(sc.nextInt());
-		pointDTO.setTotal(pointDTO.getKor() + pointDTO.getEng() + pointDTO.getMath());
-		pointDTO.setAvg(pointDTO.getTotal() / 3.0);
-
-		return pointDTO;
-	}
-
 }

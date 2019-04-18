@@ -4,38 +4,31 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class DBConnector {
-	
-	public static void disConnect(ResultSet rs, PreparedStatement st, Connection con) throws Exception{
-		rs.close();
-		//st.close();
-		//con.close();
-		//this -> 자기자신의 객체의 주소
-		DBConnector.disConnect(st, con);
-	}
-	
-	//close()
-	public static void disConnect(PreparedStatement st, Connection con) throws Exception{
-		st.close();
-		con.close();
-	}
-	
-	//Connection
-	//메서드명 getConnect
-	public static Connection getConnect() throws Exception{
-		//1. 4가지정보
-		String user="user01";
-		String password="user01";
-		String url="jdbc:oracle:thin:@127.0.0.1:1521:xe";
-		String driver ="oracle.jdbc.driver.OracleDriver";
-		
+
+	// DB연결과 종료
+	public static Connection getConnection() throws Exception {
+		String user = "user01";
+		String pwd = "user01";
+		String url = "jdbc:oracle:thin:@211.238.142.24:1521:xe";
+		String driver = "oracle.jdbc.driver.OracleDriver";
+
 		Class.forName(driver);
-		
-		Connection con = DriverManager.getConnection(url, user, password);
-		
-		return con;
-		
+		Connection conn = DriverManager.getConnection(url, user, pwd);
+
+		return conn;
 	}
 
+	public static void disConnect(PreparedStatement pst, Connection conn) throws Exception {
+		pst.close();
+		conn.close();
+	}
+
+	public static void disConnect(ResultSet rs, PreparedStatement pst, Connection conn) throws Exception {
+		rs.close();
+		pst.close();
+		conn.close();
+	}
 }

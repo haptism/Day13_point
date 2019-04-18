@@ -9,75 +9,63 @@ import com.rjm.point.PointDTO;
 import com.rjm.view.PointView;
 
 public class PointController {
-	private PointDAO pointDAO;
-	private PointInput pointInput;
-	private PointView pointView;
 	private Scanner sc;
+	private PointInput input;
+	private PointDTO dto;
+	private PointDAO dao;
+	private PointView pv;
 
 	public PointController() {
-		pointDAO = new PointDAO();
-		pointInput = new PointInput();
-		pointView = new PointView();
+		// TODO Auto-generated constructor stub
 		sc = new Scanner(System.in);
+		input = new PointInput();
+		dao = new PointDAO();
+		pv = new PointView();
 	}
 
 	public void start() throws Exception {
-		boolean check = true;
-		ArrayList<PointDTO> ar = null;
-		PointDTO pointDTO = null;
 
-		while (check) {
-			System.out.println("1. 정보      추가");
-			System.out.println("2. 정보      삭제");
-			System.out.println("3. 정보 번호 조회");
-			System.out.println("4. 정보 전체 조회");
-			System.out.println("5. 종             료");
+		int num = 0;
+		int result = 0;
+		while (true) {
+			System.out.println("1.정보추가 / 2.정보 삭제 / 3.번호 조회 / 4.전체 조회 / 5.종료");
 			int select = sc.nextInt();
 
-			switch (select) {
-			case 1:
-				pointDTO = pointInput.setPoint();
-				select = pointDAO.insert(pointDTO);
-				String message = "추가 실패";
-				if (select > 0) {
-					message = "추가 성공";
-				}
-				pointView.view(message);
-				break;
-			case 2:
-				select = pointInput.setNum("삭제");
-				select = pointDAO.delete(select);
-				String message2 = "삭제 실패";
-				if (select > 0) {
-					message2 = "삭제 성공";
-				}
-				pointView.view(message2);
+			if (select == 1) {
+				dto = input.setPoint();
+				result = dao.insert(dto);
+				if (result > 0)
+					pv.view("정보 추가 완료");
+				else
+					pv.view("정보 추가 실패");
 
+			} else if (select == 2) {
+				num = input.setNum("삭제");
+				result = dao.delete(num);
+				if (result > 0)
+					pv.view("삭제 완료");
+				else
+					pv.view("삭제 실패");
+
+			} else if (select == 3) {
+				num = input.setNum("조회");
+				dto = dao.select(num);
+				if (dto != null)
+					pv.view(dto);
+				else
+					pv.view("없는 번호");
+
+			} else if (select == 4) {
+				ArrayList<PointDTO> arr = new ArrayList<PointDTO>();
+				arr = dao.selectList();
+				pv.view(arr);
+
+			} else if (select == 5) {
+				pv.view("프로그램 종료");
 				break;
-			case 3:
-				select = pointInput.setNum("조회 ");
-				pointDTO = pointDAO.selectOne(select);
-				if (pointDTO != null) {
-					pointView.view(pointDTO);
-				} else {
-					pointView.view("없는 번호");
-				}
-				break;
-			case 4:
-				ar = pointDAO.selectList();
-				pointView.view(ar);
-				break;
-			default:
-				check = !check;
-				System.out.println("종료");
-			}
-		}
+			} else
+				System.out.println("1~5번중에 고르세요.");
+		} // end of while
 	}
-
-	// 1. 정보 추가
-	// 2. 정보 삭제
-	// 3. 정보 번호 조회
-	// 4. 정보 전체 조회
-	// 5. 종 료
 
 }

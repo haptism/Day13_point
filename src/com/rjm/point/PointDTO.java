@@ -1,6 +1,9 @@
 package com.rjm.point;
 
 public class PointDTO {
+	// Data 운반
+	// 멤버 변수, getter, setter
+
 	private int num;
 	private String sid;
 	private int kor;

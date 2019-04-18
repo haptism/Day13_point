@@ -6,26 +6,28 @@ import com.rjm.point.PointDTO;
 
 public class PointView {
 
+	// 출력 담당
+	public void view(PointDTO dto) {
+		System.out.println("학생번호:" + dto.getNum());
+		System.out.println("sid:" + dto.getSid());
+		System.out.println("kor:" + dto.getKor());
+		System.out.println("eng:" + dto.getEng());
+		System.out.println("math:" + dto.getMath());
+		System.out.println("total:" + dto.getTotal());
+		System.out.println("avg:" + dto.getAvg());
+		System.out.println("bnum:" + dto.getBnum());
+		System.out.println();
+	}
+
+	public void view(ArrayList<PointDTO> arr) {
+
+		for (PointDTO dto : arr)
+			this.view(dto);
+
+	}
+
 	public void view(String str) {
 		System.out.println(str);
-	}
-
-	public void view(PointDTO pointDTO) {
-		System.out.println("NUM   : " + pointDTO.getNum());
-		System.out.println("SID   : " + pointDTO.getSid());
-		System.out.println("KOR   : " + pointDTO.getKor());
-		System.out.println("ENG   : " + pointDTO.getEng());
-		System.out.println("MATH  : " + pointDTO.getMath());
-		System.out.println("TOTAL : " + pointDTO.getTotal());
-		System.out.println("AVG   : " + pointDTO.getAvg());
-		System.out.println("BNUM  : " + pointDTO.getBnum());
-		System.out.println("==================");
-	}
-
-	public void view(ArrayList<PointDTO> ar) {
-		for (PointDTO pointDTO : ar) {
-			this.view(pointDTO);
-		}
 	}
 
 }
